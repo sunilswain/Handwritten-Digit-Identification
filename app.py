@@ -7,13 +7,14 @@ from utils import *
 
 
 def main():
-    st.title("Image Gaussian Blur App")
+    st.title("Handwritten Digit Identification App")
+    st.caption("Try uploading an image")
 
     uploaded_file = st.file_uploader("Choose a file", type=["jpg", "jpeg", "png"])
 
-    # Add a slider for selecting the kernel size (odd integers from 1 to 10)
-    resolution_factor = st.slider("Select Gaussian Blur Kernel Size (odd integers from 1 to 10)", 0.0, 0.1, step=0.01)
-
+    # Add a slider for selecting the resolution factor
+    resolution_factor = st.slider("Choose the appropriate resolution factor (0.01 to 0.5)", 0.0, 0.5, step=0.01)
+    st.caption("The resolution factor basically helps to identify digit images & crop them")
     if uploaded_file is not None:
         # Read the image file
         image = Image.open(uploaded_file)
