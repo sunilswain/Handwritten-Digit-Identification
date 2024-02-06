@@ -11,6 +11,7 @@ def predict_digit(img):
 
     # Predicting the digit
     img = img.reshape((1, 28, 28))
+    img = img / 255.0
     prediction = np.argmax(model.predict([img]))
     return prediction
 
@@ -44,11 +45,11 @@ def mark_digits(image, digit_contours):
 
         if h < w:
             if h > (w * (5/100)):
-                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (9, 78, 145), 5)
+                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (0, 0, 0), 5)
 
         else:
             if w > (h * (5/100)):
-                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (9, 78, 145), 5)
+                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (0, 0, 0), 5)
 
     return image
 
@@ -56,12 +57,14 @@ def mark_and_predict_digits(image, digit_contours):
     # Copying the image so that we can use one for prediction & another one for marking
     image_copy = image.copy()
 
+    font_scale = round(image.shape[0] / 400, 1) # Getting the font scale factor by dividing 400 with height
+    print(font_scale)
     for cnt in digit_contours:
         x, y, w, h = cv2.boundingRect(cnt)
 
         if h < w:
             if h > (w * (5/100)):
-                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (9, 78, 145), 5)
+                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (0, 0, 0), 5)
                 digit = image_copy[y:y + h, x:x + w]
                 digit = cv2.cvtColor(digit, cv2.COLOR_BGR2GRAY)
                 _, digit = cv2.threshold(digit, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
@@ -77,12 +80,12 @@ def mark_and_predict_digits(image, digit_contours):
                     (x, y-10),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1.2,
-                    (9, 78, 145),
+                    (255, 0, 0),
                     2
                 )
         else:
             if w > (h * (5/100)):
-                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (9, 78, 145), 5)
+                cv2.rectangle(image, (x, y), ((x+w), (y+h)), (0, 0, 0), 5)
                 digit = image_copy[y:y + h, x:x + w]
                 digit = cv2.cvtColor(digit, cv2.COLOR_BGR2GRAY)
                 _, digit = cv2.threshold(digit, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
@@ -98,7 +101,7 @@ def mark_and_predict_digits(image, digit_contours):
                     (x, y-10),
                     cv2.FONT_HERSHEY_SIMPLEX,
                     1.2,
-                    (9, 78, 145),
+                    (255, 0, 0),
                     2
                 )
     return image
@@ -112,7 +115,7 @@ def make_square(image):
     else:
         height , width, col_channels = image.shape
     
-    border = height // 8
+    border = height // 6
     print(border)
  
     big = height
