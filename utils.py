@@ -113,13 +113,14 @@ def make_square(image):
     if len(image.shape) < 3:
         height, width = image.shape
     else:
-        height , width, col_channels = image.shape
+        height , width, col_channels = image.shpae
     
-    border = height // 6
-    print(border)
  
     big = height
     if big < width: big = width
+
+    border = big // 6
+    print(border)
     # Determine the size of the square (use the height as the size)
     size = big + 2 * border
     # Finding the mean pixel values of the image
