@@ -71,7 +71,7 @@ def mark_and_predict_digits(image, digit_contours):
                 print(digit.shape)
                 digit = make_square(digit)
                 digit = np.array(Image.fromarray(digit).resize((28, 28)))
-                digit = cv2.GaussianBlur(digit, (3, 3), 0)
+                # digit = cv2.GaussianBlur(digit, (3, 3), 0)
 
                 predicted_value = predict_digit(digit)
 
@@ -79,7 +79,7 @@ def mark_and_predict_digits(image, digit_contours):
                     image, str(predicted_value),
                     (x, y-10),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    1.2,
+                    font_scale,
                     (255, 0, 0),
                     2
                 )
@@ -100,7 +100,7 @@ def mark_and_predict_digits(image, digit_contours):
                     image, str(predicted_value),
                     (x, y-10),
                     cv2.FONT_HERSHEY_SIMPLEX,
-                    1.2,
+                    font_scale,
                     (255, 0, 0),
                     2
                 )
